@@ -31,14 +31,9 @@ def render(matrix):
 render(game_matrix)
 
 def gena(): #генератор ходов дающий X и 0 по очереди
-    t=2
     while True:
-        if t%2==0:
-            yield 'X'
-        else:
-            yield '0'
-        t+=1
-
+        yield 'X'
+        yield '0'
 def Won(matrix): #проверяет завершена ли игра
     matrix=matrix.copy()
     def all_the_same(elements):
@@ -73,6 +68,14 @@ for player in gena():
             game_matrix[numbers[0]][numbers[1]]=player
             break
     render(game_matrix)
+    counter = 0
+    for string in game_matrix:
+        for char in string:
+            if char in ['0','X']:
+                counter+=1
     if Won(game_matrix):
         print('игрок', player, 'победил')
+        break
+    if counter ==9:
+        print('всё поле занято, ничья')
         break
